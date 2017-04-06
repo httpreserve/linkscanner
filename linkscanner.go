@@ -79,7 +79,7 @@ func retrieveLink(literal string) (string, error) {
 }
 
 // HTTPScanner expects a length of text as input and returns
-// two slices dependant on what it discovers. First a list of
+// two slices dependant on what it discovers. First a unique list of
 // URLs parsed successfully by net/url. Second a list of errors
 // that were encountered trying to parse the URL found in the text.
 func HTTPScanner(content string) ([]string, []error) {
@@ -97,7 +97,7 @@ func HTTPScanner(content string) ([]string, []error) {
 		if err != nil {
 			errorsList = append(errorsList, err)
 		}
-		if link != "" {
+		if err == nil && link != "" {
 			seen := false
 			for _, x := range hyperlinkList {
 				if x == link {
@@ -108,6 +108,37 @@ func HTTPScanner(content string) ([]string, []error) {
 			if !seen {
 				hyperlinkList = append(hyperlinkList, link)
 			}
+		}
+	}
+
+	return hyperlinkList, errorsList
+}
+
+// HTTPScannerIndex prvides the same basic functionality of HTTPScanner.
+// The number of words scanned is monitored. This count becomes an position
+// integer providing an approximate index in the text where the hyperlink 
+// was found. The returned value is not a zero-based index.
+func HTTPScannerIndex(content string) ([]map[int]string, []error) {
+
+	var hyperlinkList []map[int]string
+	var errorsList []error
+
+	reader := bufio.NewReader(strings.NewReader(content))
+	scanner := bufio.NewScanner(reader)
+
+	scanner.Split(bufio.ScanWords)
+
+	var pos int 
+	for scanner.Scan() {
+		pos++
+		link, err := retrieveLink(scanner.Text())
+		if err != nil {
+			errorsList = append(errorsList, err)
+		}
+		if err == nil && link != "" {
+			tmp := make(map[int]string)
+			tmp[pos] = link
+			hyperlinkList = append(hyperlinkList, tmp)
 		}
 	}
 
