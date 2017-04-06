@@ -39,7 +39,7 @@ func TestIndexOutput(t *testing.T) {
 	linklist, errs := HTTPScannerIndex(testSentence)
 	if len(errs) != 0 {
 		t.Errorf("FAIL: Unexpected errors parsing WWW %v", errs)
-	}	
+	}
 
 	if len(linklist) > 0 && len(linklist) == 1 {
 		for x := range linklist {
@@ -49,5 +49,5 @@ func TestIndexOutput(t *testing.T) {
 				}
 			}
 		}
-	}	
+	}
 }

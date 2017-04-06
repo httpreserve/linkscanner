@@ -116,7 +116,7 @@ func HTTPScanner(content string) ([]string, []error) {
 
 // HTTPScannerIndex prvides the same basic functionality of HTTPScanner.
 // The number of words scanned is monitored. This count becomes an position
-// integer providing an approximate index in the text where the hyperlink 
+// integer providing an approximate index in the text where the hyperlink
 // was found. The returned value is not a zero-based index.
 func HTTPScannerIndex(content string) ([]map[int]string, []error) {
 
@@ -128,7 +128,7 @@ func HTTPScannerIndex(content string) ([]map[int]string, []error) {
 
 	scanner.Split(bufio.ScanWords)
 
-	var pos int 
+	var pos int
 	for scanner.Scan() {
 		pos++
 		link, err := retrieveLink(scanner.Text())
