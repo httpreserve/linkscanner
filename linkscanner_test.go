@@ -43,7 +43,7 @@ func TestIndexOutput(t *testing.T) {
 
 	if len(linklist) > 0 && len(linklist) == 1 {
 		for x := range linklist {
-			for k, _ := range linklist[x] {
+			for k := range linklist[x] {
 				if k != pos {
 					t.Errorf("FAIL: Index returned is different than expected %d received, expected %d", k, pos)
 				}
