@@ -42,7 +42,7 @@ func cleanLink(link string, www bool) string {
 			return cleanLink(substring, false)
 		}
 	}
-	return link
+	return strings.TrimSuffix(link, "/")
 }
 
 // FixWWW enables the override of the default setting in this package to
