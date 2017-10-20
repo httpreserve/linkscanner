@@ -13,7 +13,7 @@ import (
 // encountered by way of ensuring the link returned to the calling code is
 // as valid as possible before further use of it.
 
-var fixProtocol = true
+var fixProtocol = false
 
 // strings to look for that indicate a web resource
 var (
@@ -21,6 +21,7 @@ var (
 	protoHTTP  = "http://"
 	protoWww   = "www." // technically not a protocol
 	protoFtp   = "ftp://"
+	protoMailto = "mailto:"
 )
 
 //common line endings that shouldn't be in URL
@@ -52,6 +53,7 @@ func FixWWW(f bool) {
 }
 
 func retrieveLink(literal string) (string, error) {
+	literal = strings.ToLower(literal)
 	var link string
 	if strings.Contains(literal, protoHTTPS) {
 		literal = literal[strings.Index(literal, protoHTTPS):]
@@ -65,6 +67,9 @@ func retrieveLink(literal string) (string, error) {
 	} else if strings.Contains(literal, protoWww) {
 		literal = literal[strings.Index(literal, protoWww):]
 		link = cleanLink(literal, true)
+	} else if strings.Contains(literal, protoMailto) {
+		literal = literal[strings.Index(literal, protoMailto):]
+		link = cleanLink(literal, false)
 	}
 
 	if link != "" {
