@@ -13,7 +13,7 @@ import (
 // encountered by way of ensuring the link returned to the calling code is
 // as valid as possible before further use of it.
 
-var fixProtocol = false
+var fixProtocol = true
 
 // strings to look for that indicate a web resource
 var (
