@@ -17,10 +17,10 @@ var fixProtocol = true
 
 // strings to look for that indicate a web resource
 var (
-	protoHTTPS = "https://"
-	protoHTTP  = "http://"
-	protoWww   = "www." // technically not a protocol
-	protoFtp   = "ftp://"
+	protoHTTPS  = "https://"
+	protoHTTP   = "http://"
+	protoWww    = "www." // technically not a protocol
+	protoFtp    = "ftp://"
 	protoMailto = "mailto:"
 )
 
