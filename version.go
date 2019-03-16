@@ -1,6 +1,6 @@
 package linkscanner
 
-var version = "linkscanner-0.0.2"
+var version = "linkscanner-0.0.3"
 
 // GetVersion returns the version of the package
 // to the calling code.
